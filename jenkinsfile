@@ -1,24 +1,28 @@
 pipeline{
-    agent any
+    agent any 
 
-    stages{
+    stages {
 
-        stage('soanr quality status'){
+        stage('sonar quality check'){
 
             agent{
-                docker {
+                docker{
                     image 'maven'
                 }
             }
-        }
-              
+            
             steps{
-                withSonarQubeEnv('soanr_auth') {
 
-                sh 'mvn clean package sonar:sonar'
+                script{
+
+
+                    withSonarQubeEnv('My SonarQube Server') {
+
+
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                 }
             }
         }
-
-
     }
 }
