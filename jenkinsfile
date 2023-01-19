@@ -28,5 +28,16 @@ pipeline{
                 }
             }
         }
+
+        stage('Docker Build'){
+
+            stpes{
+                script{
+
+                    
+                }
+            }
+        }
+
     }
 }
