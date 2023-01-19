@@ -27,16 +27,15 @@ pipeline{
                     waitForQualityGate abortPipeline: false, credentialsId: 'soanr_auth'
                 }
             }
-        }
 
-        stage('Docker Build'){
+        // stage('Docker Build'){
 
-            stpes{
-                script{
+        //     stpes{
+        //         script{
 
-                    
-                }
-            }
+
+        //         }
+        //     }
         }
 
     }
