@@ -1,5 +1,9 @@
 pipeline{
     agent any 
+    environment{
+
+        VERSION = "${env.BUILD_ID}"
+    }
 
     stages {
 
@@ -27,15 +31,26 @@ pipeline{
                     waitForQualityGate abortPipeline: false, credentialsId: 'soanr_auth'
                 }
             }
+        }
 
-        // stage('Docker Build'){
+        stage('Docker Build'){
 
-        //     stpes{
-        //         script{
+             stpes{
+                 script{
+                    withCredentials([string(credentialsId: 'nexus-cred', variable: 'nexus_auth')]) {
+
+                        sh """
+                        docket build -t  34.224.90.69:8083/springapps:${ERSION} .
+                        docker login -u admin --password  $nexus_auth 34.224.90.69:8083
+                        docker push 34.224.90.69:8083/springapps:${ERSION}
+                        docker rmi 34.224.90.69:8083/springapps:${ERSION}
+                        """
+
+            }
 
 
-        //         }
-        //     }
+                 }
+           }
         }
 
     }
